@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>SQL Training - Serious Mode</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#38bdf8",
+              accent: "#22c55e",
+              dark: "#020617",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .slide {
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+        transition: all 0.5s ease;
+      }
+      .slide.active {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        position: relative;
+      }
+      .box {
+        transition: all 0.3s ease;
+      }
+      .highlight-blue {
+        background: rgba(59, 130, 246, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .highlight-green {
+        background: rgba(34, 197, 94, 0.3);
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+
+  <body class="bg-dark text-white min-h-screen flex flex-col">
+    <!-- HEADER -->
+
+    <div class="p-4 flex justify-between items-center border-b border-white/10">
+      <h1 class="text-primary font-bold">SQL Training — Serious Mode</h1>
+      <div>
+        <button onclick="prev()" class="px-3 py-1 bg-white/10 rounded">
+          ←
+        </button>
+        <button
+          onclick="next()"
+          class="px-3 py-1 bg-primary text-black rounded"
+        >
+          →
+        </button>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+
+    <div class="h-1 bg-white/10">
+      <div
+        id="bar"
+        class="h-1 bg-gradient-to-r from-cyan-400 to-green-400"
+      ></div>
+    </div>
+
+    <div class="flex-1 flex items-center justify-center p-6">
+      <div class="w-full max-w-6xl relative">
+        <!-- 1 -->
+
+        <div class="slide active text-center">
+          <h2
+            class="text-5xl font-extrabold mb-6 bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent"
+          >
+            SQL = Cara Berpikir Data
+          </h2>
+
+          <p class="text-lg opacity-80 max-w-2xl mx-auto">
+            Kalau lo cuma hafal syntax, lo bakal stuck.
+            <span class="text-primary font-semibold">Yang bikin beda:</span>
+            ngerti struktur & alur data.
+          </p>
+
+          <div class="mt-10 flex justify-center gap-6 text-sm">
+            <div class="px-4 py-2 bg-white/5 rounded-lg border border-white/10">
+              Structure
+            </div>
+            <div class="px-4 py-2 bg-white/5 rounded-lg border border-white/10">
+              Relation
+            </div>
+            <div class="px-4 py-2 bg-white/5 rounded-lg border border-white/10">
+              Logic
+            </div>
+          </div>
+        </div>
+
+        <!-- DATABASE -->
+
+        <div class="slide">
+          <h2
+            class="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent"
+          >
+            Apa itu Database?
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <!-- ILUSTRASI -->
+            <div
+              class="bg-white/5 backdrop-blur rounded-xl border border-white/10 p-6 shadow-xl"
+            >
+              <div class="space-y-3 text-sm">
+                <div class="p-3 bg-white/5 rounded border border-white/10">
+                  👤 Andi
+                </div>
+                <div class="p-3 bg-white/5 rounded border border-white/10">
+                  👤 Budi
+                </div>
+                <div class="p-3 bg-white/5 rounded border border-white/10">
+                  👤 Siti
+                </div>
+              </div>
+
+              <div class="text-center text-2xl my-4 opacity-60">⬇</div>
+
+              <div
+                class="p-4 bg-cyan-500/10 border border-cyan-400/20 rounded text-center"
+              >
+                <b class="text-cyan-300">Database</b><br />
+                Tempat semua data disimpan & diatur
+              </div>
+            </div>
+
+            <!-- DEFINISI -->
+            <div class="space-y-4">
+              <div
+                class="p-5 rounded-xl bg-blue-500/10 border border-blue-400/20"
+              >
+                <b class="text-blue-300">Database</b><br />
+                Kumpulan data yang disimpan secara terstruktur, sehingga bisa
+                dicari, diolah, dan digunakan kembali.
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-yellow-500/10 border border-yellow-400/20"
+              >
+                <b class="text-yellow-300">Masalah Tanpa Database</b><br />
+                Data berantakan, susah dicari, gampang duplikat, dan rawan
+                salah.
+              </div>
+            </div>
+          </div>
+
+          <!-- FUNGSI -->
+
+          <div class="mt-10 grid md:grid-cols-3 gap-6 text-sm">
+            <div
+              class="p-4 rounded-xl bg-green-500/10 border border-green-400/20 text-center"
+            >
+              <b class="text-green-300">Simpan</b><br />
+              Data tersimpan rapi & aman
+            </div>
+
+            <div
+              class="p-4 rounded-xl bg-purple-500/10 border border-purple-400/20 text-center"
+            >
+              <b class="text-purple-300">Kelola</b><br />
+              Bisa diubah, dihapus, diperbarui
+            </div>
+
+            <div
+              class="p-4 rounded-xl bg-red-500/10 border border-red-400/20 text-center"
+            >
+              <b class="text-red-300">Ambil</b><br />
+              Data bisa dicari & dianalisis cepat
+            </div>
+          </div>
+
+          <p class="mt-8 text-center text-yellow-300 font-semibold">
+            SQL adalah cara kita "ngobrol" dengan database
+          </p>
+        </div>
+
+        <!-- 2 -->
+        <!-- EXCEL VS DATABASE -->
+
+        <div class="slide">
+          <h2
+            class="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-yellow-400 to-red-400 bg-clip-text text-transparent"
+          >
+            Kenapa Excel Gagal di Skala Besar?
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            ```
+            <!-- EXCEL PROBLEM -->
+            <div class="space-y-4">
+              <div
+                class="p-5 rounded-xl bg-yellow-500/10 border border-yellow-400/20"
+              >
+                <b class="text-yellow-300">1. Data Gampang Rusak</b><br />
+                Salah edit 1 cell → semua bisa kacau Tidak ada kontrol struktur
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-red-500/10 border border-red-400/20"
+              >
+                <b class="text-red-300">2. Duplikasi & Inkonsistensi</b><br />
+                Copy paste = data dobel Tidak ada constraint (UNIQUE, FK)
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-orange-500/10 border border-orange-400/20"
+              >
+                <b class="text-orange-300">3. Lambat di Data Besar</b><br />
+                Ribuan → masih oke Ratusan ribu → mulai lag Jutaan → hancur
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-pink-500/10 border border-pink-400/20"
+              >
+                <b class="text-pink-300">4. Tidak Ada Relasi Nyata</b><br />
+                Hubungan antar sheet manual Gampang salah referensi
+              </div>
+
+              <div
+                class="p-5 rounded-xl bg-purple-500/10 border border-purple-400/20"
+              >
+                <b class="text-purple-300">5. Tidak Aman</b><br />
+                Semua bisa edit Tidak ada kontrol akses yang proper
+              </div>
+            </div>
+
+            <!-- VISUAL PERBANDINGAN -->
+            <div
+              class="bg-white/5 backdrop-blur rounded-xl border border-white/10 p-6 shadow-xl"
+            >
+              <h3 class="text-lg mb-4 text-center text-primary">
+                Perbandingan Cepat
+              </h3>
+
+              <table class="w-full text-sm text-left">
+                <thead class="bg-white/10">
+                  <tr>
+                    <th class="px-3 py-2">Aspek</th>
+                    <th class="px-3 py-2 text-yellow-300">Excel</th>
+                    <th class="px-3 py-2 text-green-300">Database</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-200">
+                  <tr class="border-b border-white/10">
+                    <td class="px-3 py-2">Volume Data</td>
+                    <td class="px-3 py-2">Terbatas</td>
+                    <td class="px-3 py-2">Besar & scalable</td>
+                  </tr>
+
+                  <tr class="border-b border-white/10">
+                    <td class="px-3 py-2">Relasi</td>
+                    <td class="px-3 py-2">Manual</td>
+                    <td class="px-3 py-2">Otomatis (FK)</td>
+                  </tr>
+
+                  <tr class="border-b border-white/10">
+                    <td class="px-3 py-2">Konsistensi</td>
+                    <td class="px-3 py-2">Rawan error</td>
+                    <td class="px-3 py-2">Terjaga (constraint)</td>
+                  </tr>
+
+                  <tr class="border-b border-white/10">
+                    <td class="px-3 py-2">Akses</td>
+                    <td class="px-3 py-2">Terbatas</td>
+                    <td class="px-3 py-2">Multi-user</td>
+                  </tr>
+
+                  <tr>
+                    <td class="px-3 py-2">Performa</td>
+                    <td class="px-3 py-2">Turun drastis</td>
+                    <td class="px-3 py-2">Optimal</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <p class="mt-8 text-center text-yellow-300 font-semibold">
+            Excel cocok untuk analisis kecil, bukan sistem data besar
+          </p>
+
+          <p class="mt-2 text-center text-red-400">
+            Kalau masih pakai Excel untuk sistem besar → itu bukan efisiensi,
+            itu bom waktu
+          </p>
+        </div>
+
+        <div class="slide">
+          <h2 class="text-4xl font-bold mb-8 text-primary text-center">
+            Struktur Tabel
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 items-start">
+            <!-- TABLE VISUAL -->
+            <div
+              class="bg-white/5 backdrop-blur rounded-xl border border-white/10 overflow-hidden shadow-xl"
+            >
+              <table class="w-full text-sm">
+                <thead
+                  class="bg-gradient-to-r from-cyan-400/20 to-green-400/20 text-primary"
+                >
+                  <tr>
+                    <th class="px-4 py-3">NPWP 🔑</th>
+                    <th class="px-4 py-3">Nama</th>
+                    <th class="px-4 py-3">Alamat</th>
+                    <th class="px-4 py-3">KD KLU</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-200">
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 font-semibold text-cyan-300">
+                      123456789555000
+                    </td>
+                    <td class="px-4 py-2">Andi</td>
+                    <td class="px-4 py-2">Jakarta</td>
+                    <td class="px-4 py-2 text-green-300">54321</td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 font-semibold text-cyan-300">
+                      987654321444000
+                    </td>
+                    <td class="px-4 py-2">Budi</td>
+                    <td class="px-4 py-2">Bogor</td>
+                    <td class="px-4 py-2 text-green-300">98765</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- EXPLANATION CARDS -->
+            <div class="grid gap-4 text-sm">
+              <div
+                class="p-4 rounded-xl bg-blue-500/10 border border-blue-400/20"
+              >
+                <b class="text-blue-300">Kolom</b><br />
+                Struktur data (vertikal). Tentuin jenis isi.
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-green-500/10 border border-green-400/20"
+              >
+                <b class="text-green-300">Baris</b><br />
+                1 baris = 1 data lengkap.
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-yellow-500/10 border border-yellow-400/20"
+              >
+                <b class="text-yellow-300">Primary Key</b><br />
+                Identitas unik. Gak boleh duplikat.
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-purple-500/10 border border-purple-400/20"
+              >
+                <b class="text-purple-300">Foreign Key</b><br />
+                Penghubung antar tabel.
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-red-500/10 border border-red-400/20"
+              >
+                <b class="text-red-300">Tipe Data</b><br />
+                Nentuin bentuk isi (angka, teks, tanggal).
+              </div>
+            </div>
+            ```
+          </div>
+
+          <p class="mt-8 text-center text-yellow-300 font-semibold">
+            Kalau struktur salah → semua query setelah ini ikut rusak
+          </p>
+        </div>
+
+        <!-- slide -->
+
+        <div class="slide">
+          <h2 class="text-3xl mb-6">Tipe Data (Fundamental)</h2>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            ```
+            <!-- TABLE -->
+            <div
+              class="bg-white/5 backdrop-blur rounded-xl border border-white/10 overflow-hidden shadow-lg"
+            >
+              <table class="w-full text-sm">
+                <thead class="bg-white/10 text-primary">
+                  <tr>
+                    <th class="px-4 py-2 border-b border-white/10">Tipe</th>
+                    <th class="px-4 py-2 border-b border-white/10">Contoh</th>
+                    <th class="px-4 py-2 border-b border-white/10">
+                      Dipakai untuk
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-200">
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">INT</td>
+                    <td class="px-4 py-2 border-b border-white/5">123</td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      ID, jumlah, counter
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">VARCHAR</td>
+                    <td class="px-4 py-2 border-b border-white/5">'Andi'</td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      Nama, teks fleksibel
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">DATE</td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      2024-01-01
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      Tanggal saja
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">DATETIME</td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      2024-01-01 10:00
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      Log, transaksi
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">BOOLEAN</td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      true / false
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      Status (aktif/tidak)
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2">DECIMAL</td>
+                    <td class="px-4 py-2">10000.50</td>
+                    <td class="px-4 py-2">Harga, uang (presisi penting)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- PENJELASAN -->
+            <div class="space-y-4 text-sm">
+              <div
+                class="bg-blue-500/10 border border-blue-400/20 p-4 rounded-xl"
+              >
+                <b class="text-blue-300">INT</b><br />
+                Jangan pakai buat data yang bukan angka matematis (contoh: nomor
+                HP ❌)
+              </div>
+
+              <div
+                class="bg-green-500/10 border border-green-400/20 p-4 rounded-xl"
+              >
+                <b class="text-green-300">VARCHAR</b><br />
+                Fleksibel, tapi jangan kebanyakan → bisa berat
+              </div>
+
+              <div
+                class="bg-yellow-500/10 border border-yellow-400/20 p-4 rounded-xl"
+              >
+                <b class="text-yellow-300">DATE vs DATETIME</b><br />
+                Kalau butuh jam → pakai DATETIME<br />
+                Kalau cuma tanggal → DATE
+              </div>
+
+              <div
+                class="bg-red-500/10 border border-red-400/20 p-4 rounded-xl"
+              >
+                <b class="text-red-300">DECIMAL</b><br />
+                Jangan pakai FLOAT buat uang → bisa error pembulatan
+              </div>
+            </div>
+            ```
+          </div>
+
+          <p class="mt-6 text-yellow-300 text-center">
+            Salah pilih tipe data = bug + performa jelek
+          </p>
+        </div>
+
+        <!-- slide -->
+        <!-- CONSTRAINT -->
+
+        <div class="slide">
+          <h2 class="text-3xl mb-6">Constraint (Penjaga Data)</h2>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            ```
+            <!-- TABLE -->
+            <div
+              class="bg-white/5 backdrop-blur rounded-xl border border-white/10 overflow-hidden shadow-lg"
+            >
+              <table class="w-full text-sm">
+                <thead class="bg-white/10 text-primary">
+                  <tr>
+                    <th class="px-4 py-2 border-b border-white/10">
+                      Constraint
+                    </th>
+                    <th class="px-4 py-2 border-b border-white/10">Fungsi</th>
+                    <th class="px-4 py-2 border-b border-white/10">Contoh</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-200">
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">
+                      PRIMARY KEY
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      Unik + identitas utama
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">NPWP, ID</td>
+                  </tr>
+
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">
+                      FOREIGN KEY
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      Relasi antar tabel
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      user_id → users.id
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">NOT NULL</td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      Wajib ada nilai
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      nama tidak boleh kosong
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">UNIQUE</td>
+                    <td class="px-4 py-2 border-b border-white/5">
+                      Tidak boleh duplikat
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">email</td>
+                  </tr>
+
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2">CHECK</td>
+                    <td class="px-4 py-2">Validasi nilai</td>
+                    <td class="px-4 py-2">umur > 17</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- PENJELASAN -->
+            <div class="space-y-4 text-sm">
+              <div
+                class="bg-blue-500/10 border border-blue-400/20 p-4 rounded-xl"
+              >
+                <b class="text-blue-300">PRIMARY KEY</b><br />
+                Satu baris = satu identitas. Tanpa ini, data lo gak bisa
+                dibedain.
+              </div>
+
+              <div
+                class="bg-green-500/10 border border-green-400/20 p-4 rounded-xl"
+              >
+                <b class="text-green-300">FOREIGN KEY</b><br />
+                Jaga relasi tetap valid. Data yatim = tanda FK lo gagal.
+              </div>
+
+              <div
+                class="bg-yellow-500/10 border border-yellow-400/20 p-4 rounded-xl"
+              >
+                <b class="text-yellow-300">NOT NULL</b><br />
+                Hindari data kosong yang bikin logic kacau.
+              </div>
+
+              <div
+                class="bg-purple-500/10 border border-purple-400/20 p-4 rounded-xl"
+              >
+                <b class="text-purple-300">UNIQUE</b><br />
+                Cocok buat email, username, dll.
+              </div>
+
+              <div
+                class="bg-red-500/10 border border-red-400/20 p-4 rounded-xl"
+              >
+                <b class="text-red-300">CHECK</b><br />
+                Validasi di level database (bukan cuma di aplikasi!)
+              </div>
+            </div>
+            ```
+          </div>
+
+          <!-- CONTOH SQL -->
+
+          <div class="mt-6 bg-black/40 p-4 rounded text-sm">
+            <pre>
+CREATE TABLE users (
+  id INT PRIMARY KEY,
+  email VARCHAR(100) UNIQUE,
+  nama VARCHAR(100) NOT NULL,
+  umur INT CHECK (umur > 17)
+);
+</pre
+            >
+          </div>
+
+          <p class="mt-4 text-yellow-300 text-center">
+            Tanpa constraint = data bebas rusak tanpa kontrol
+          </p>
+        </div>
+
+        <!-- 3 -->
+
+        <div class="slide">
+          <h2 class="text-3xl mb-6">Relasi (Interactive)</h2>
+
+          <div class="flex items-center justify-center gap-12">
+            <div
+              class="bg-white/5 backdrop-blur rounded-xl border border-white/10 overflow-hidden shadow-lg"
+            >
+              <table class="w-full text-sm">
+                <thead class="bg-white/10 text-primary">
+                  <tr>
+                    <th class="px-4 py-2 border-b border-white/10 klu-left">
+                      KD_KLU 🔑
+                    </th>
+                    <th class="px-4 py-2 border-b border-white/10">Nama_KLU</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-200">
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5 klu-left">
+                      54321
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">Pegawai</td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 klu-left">98765</td>
+                    <td class="px-4 py-2">Usaha</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- RELATION -->
+            <div
+              id="usersBox"
+              onclick="highlight('u')"
+              class="box p-5 bg-blue-500/20 rounded-xl border border-blue-400/20 cursor-pointer hover:scale-105 transition"
+            >
+              <b>Ref_KLU</b><br />KD_KLU (PK)
+            </div>
+            <div class="text-3xl opacity-70">⇄</div>
+
+            <div
+              id="ordersBox"
+              onclick="highlight('o')"
+              class="box p-5 bg-green-500/20 rounded-xl border border-green-400/20 cursor-pointer hover:scale-105 transition"
+            >
+              <b>MFWP</b><br />KD_KLU (FK)
+            </div>
+            <!-- RIGHT TABLE -->
+            <div
+              class="bg-white/5 backdrop-blur rounded-xl border border-white/10 overflow-hidden shadow-lg"
+            >
+              <table class="w-full text-sm">
+                <thead class="bg-white/10 text-accent">
+                  <tr>
+                    <th class="px-4 py-2 border-b border-white/10">NPWP 🔑</th>
+                    <th class="px-4 py-2 border-b border-white/10">Nama</th>
+                    <th class="px-4 py-2 border-b border-white/10">Alamat</th>
+                    <th class="px-4 py-2 border-b border-white/10 klu-right">
+                      KD_KLU 🔗
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-200">
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2 border-b border-white/5">
+                      123456789555000
+                    </td>
+                    <td class="px-4 py-2 border-b border-white/5">Andi</td>
+                    <td class="px-4 py-2 border-b border-white/5">Jakarta</td>
+                    <td class="px-4 py-2 border-b border-white/5 klu-right">
+                      54321
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition">
+                    <td class="px-4 py-2">987654321444000</td>
+                    <td class="px-4 py-2">Budi</td>
+                    <td class="px-4 py-2">Bogor</td>
+                    <td class="px-4 py-2 klu-right">98765</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <p class="mt-6 text-yellow-300 text-center">
+            Klik buat lihat hubungan
+          </p>
+        </div>
+
+        <!-- 4 -->
+
+        <div class="slide">
+          <h2 class="text-3xl mb-4">Cara Baca Query</h2>
+
+          <pre class="bg-black/40 p-4 rounded">
+SELECT nama
+FROM users
+WHERE umur > 30;
+  </pre
+          >
+
+          <p class="mt-4 text-yellow-300">Eksekusi: FROM → WHERE → SELECT</p>
+        </div>
+
+        <!-- QUERY FUNDAMENTAL -->
+
+        <div class="slide">
+          <h2 class="text-4xl font-bold mb-8 text-primary text-center">
+            Query Fundamental (Yang Wajib Dikuasai)
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            ```
+            <!-- KIRI: FLOW -->
+            <div class="space-y-4">
+              <div
+                class="p-4 rounded-xl bg-blue-500/10 border border-blue-400/20"
+              >
+                <b class="text-blue-300">1. SELECT</b><br />
+                Ambil & bentuk data
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-green-500/10 border border-green-400/20"
+              >
+                <b class="text-green-300">2. WHERE</b><br />
+                Filter data
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-yellow-500/10 border border-yellow-400/20"
+              >
+                <b class="text-yellow-300">3. ORDER BY / LIMIT</b><br />
+                Urutkan & batasi hasil
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-purple-500/10 border border-purple-400/20"
+              >
+                <b class="text-purple-300">4. JOIN</b><br />
+                Gabung data antar tabel
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-red-500/10 border border-red-400/20"
+              >
+                <b class="text-red-300">5. GROUP BY</b><br />
+                Ringkas data (aggregate)
+              </div>
+
+              <div
+                class="p-4 rounded-xl bg-cyan-500/10 border border-cyan-400/20"
+              >
+                <b class="text-cyan-300">6. HAVING</b><br />
+                Filter hasil grouping
+              </div>
+            </div>
+
+            <!-- KANAN: CONTOH -->
+            <div class="bg-black/40 rounded-xl p-4 text-sm overflow-auto">
+              ```
+
+              <pre>
+SELECT u.nama, SUM(o.total) as total
+FROM users u
+JOIN orders o ON u.id = o.user_id
+WHERE o.total > 50000
+GROUP BY u.nama
+HAVING SUM(o.total) > 100000
+ORDER BY total DESC
+LIMIT 5;
+</pre
+              >
+
+              ```
+            </div>
+            ```
+          </div>
+
+          <!-- FLOW EKSEKUSI -->
+
+          <div class="mt-8 text-center">
+            <p class="text-yellow-300 font-semibold">
+              Cara baca query (yang sering kebalik):
+            </p>
+            <p class="mt-2 text-lg tracking-wide">
+              FROM → JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER → LIMIT
+            </p>
+          </div>
+
+          <!-- WARNING -->
+
+          <p class="mt-6 text-center text-red-400">
+            Kalau lo gak ngerti urutan ini, lo bakal salah logika terus
+          </p>
+        </div>
+
+        <!-- 5 -->
+
+        <div class="slide">
+          <h2 class="text-3xl mb-4">JOIN</h2>
+
+          <div class="flex gap-6 justify-center">
+            ```
+            <div class="p-4 bg-blue-500/20 rounded">
+              users
+              <div class="text-sm mt-2">1 Andi<br />2 Budi</div>
+            </div>
+
+            <div class="p-4 bg-green-500/20 rounded">
+              orders
+              <div class="text-sm mt-2">1→100k<br />1→200k<br />2→50k</div>
+            </div>
+            ```
+          </div>
+
+          <p class="mt-4 text-red-400 text-center">
+            JOIN = expand data (bisa dobel!)
+          </p>
+        </div>
+
+        <!-- 6 -->
+
+        <div class="slide">
+          <h2 class="text-3xl mb-4">GROUP BY</h2>
+
+          <pre class="bg-black/40 p-4 rounded">
+SELECT user_id, SUM(total)
+FROM orders
+GROUP BY user_id;
+  </pre
+          >
+
+          <p class="mt-4 text-green-400">Ini buat ringkas data (aggregate)</p>
+        </div>
+
+        <!-- 7 PLAYGROUND -->
+
+        <div class="slide">
+          <h2 class="text-3xl mb-4">SQL Playground</h2>
+
+          <textarea
+            id="query"
+            class="w-full h-32 text-black p-3 rounded"
+          ></textarea>
+
+          <button
+            onclick="run()"
+            class="mt-3 bg-primary text-black px-4 py-2 rounded"
+          >
+            Run
+          </button>
+
+          <div id="output" class="mt-4 text-sm"></div>
+        </div>
+
+        <!-- 8 -->
+
+        <div class="slide text-center">
+          <h2 class="text-3xl">Done</h2>
+          <p class="opacity-70">Sekarang lo ngerti, atau masih nebak?</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let i = 0;
+      const slides = document.querySelectorAll(".slide");
+      const bar = document.getElementById("bar");
+
+      const users = [
+        { id: 1, nama: "Andi" },
+        { id: 2, nama: "Budi" },
+      ];
+
+      const orders = [
+        { user_id: 1, total: 100000 },
+        { user_id: 1, total: 200000 },
+        { user_id: 2, total: 50000 },
+      ];
+
+      function show() {
+        slides.forEach((s) => s.classList.remove("active"));
+        slides[i].classList.add("active");
+        bar.style.width = ((i + 1) / slides.length) * 100 + "%";
+      }
+
+      function next() {
+        if (i < slides.length - 1) {
+          i++;
+          show();
+        }
+      }
+      function prev() {
+        if (i > 0) {
+          i--;
+          show();
+        }
+      }
+
+      //   function highlight(t) {
+      //     usersBox.classList.remove("bg-blue-500");
+      //     ordersBox.classList.remove("bg-green-500");
+
+      //     if (t === "u") {
+      //       usersBox.classList.add("bg-blue-500");
+      //     } else {
+      //       ordersBox.classList.add("bg-green-500");
+      //     }
+      //   }
+      function highlight(type) {
+        const left = document.querySelectorAll(".klu-left");
+        const right = document.querySelectorAll(".klu-right");
+
+        // reset semua
+        left.forEach((el) => el.classList.remove("highlight-blue"));
+        right.forEach((el) => el.classList.remove("highlight-green"));
+
+        // reset box
+        usersBox.classList.remove("bg-blue-500");
+        ordersBox.classList.remove("bg-green-500");
+
+        if (type === "u") {
+          left.forEach((el) => el.classList.add("highlight-blue"));
+          usersBox.classList.add("bg-blue-500");
+        }
+
+        if (type === "o") {
+          right.forEach((el) => el.classList.add("highlight-green"));
+          ordersBox.classList.add("bg-green-500");
+        }
+      }
+
+      function run() {
+        const q = document.getElementById("query").value.toLowerCase();
+        let out = "";
+
+        if (q.includes("group")) {
+          out = users
+            .map((u) => {
+              let total = orders
+                .filter((o) => o.user_id === u.id)
+                .reduce((a, b) => a + b.total, 0);
+              return u.nama + ": " + total;
+            })
+            .join("<br>");
+        } else if (q.includes("join")) {
+          out = orders
+            .map((o) => {
+              let user = users.find((u) => u.id === o.user_id);
+              return user.nama + " - " + o.total;
+            })
+            .join("<br>");
+        } else {
+          out = "Query belum dikenali";
+        }
+
+        document.getElementById("output").innerHTML = out;
+      }
+
+      show();
+    </script>
+  </body>
+</html>
