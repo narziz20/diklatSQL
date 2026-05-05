@@ -842,71 +842,7 @@ LIMIT 5;
 
         <!-- 5 -->
 
-        <div class="slide">
-          <h2 class="text-3xl mb-4">JOIN</h2>
-
-          <div class="flex gap-6 justify-center">
-            ```
-            <div class="p-4 bg-blue-500/20 rounded">
-              users
-              <div class="text-sm mt-2">1 Andi<br />2 Budi</div>
-            </div>
-
-            <div class="p-4 bg-green-500/20 rounded">
-              orders
-              <div class="text-sm mt-2">1→100k<br />1→200k<br />2→50k</div>
-            </div>
-            ```
-          </div>
-
-          <p class="mt-4 text-red-400 text-center">
-            JOIN = expand data (bisa dobel!)
-          </p>
-        </div>
-
-        <!-- 6 -->
-
-        <div class="slide">
-          <h2 class="text-3xl mb-4">GROUP BY</h2>
-
-          <pre class="bg-black/40 p-4 rounded">
-SELECT user_id, SUM(total)
-FROM orders
-GROUP BY user_id;
-  </pre
-          >
-
-          <p class="mt-4 text-green-400">Ini buat ringkas data (aggregate)</p>
-        </div>
-
-        <!-- 7 PLAYGROUND -->
-
-        <div class="slide">
-          <h2 class="text-3xl mb-4">SQL Playground</h2>
-
-          <textarea
-            id="query"
-            class="w-full h-32 text-black p-3 rounded"
-          ></textarea>
-
-          <button
-            onclick="run()"
-            class="mt-3 bg-primary text-black px-4 py-2 rounded"
-          >
-            Run
-          </button>
-
-          <div id="output" class="mt-4 text-sm"></div>
-        </div>
-
-        <!-- 8 -->
-
-        <div class="slide text-center">
-          <h2 class="text-3xl">Done</h2>
-          <p class="opacity-70">Sekarang lo ngerti, atau masih nebak?</p>
-        </div>
-      </div>
-    </div>
+       
 
     <script>
       let i = 0;
